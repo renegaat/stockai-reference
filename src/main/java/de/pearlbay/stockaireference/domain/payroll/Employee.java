@@ -13,6 +13,11 @@ import javax.persistence.Transient;
 @Entity
 public class Employee {
     
+    @Autowired
+    @Transient
+    private EmployeeRepository employeeRepository;
+    
+    
     private @Id @GeneratedValue Long id;
     private String name;
     private String role;
