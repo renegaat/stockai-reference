@@ -1,19 +1,19 @@
 package de.pearlbay.stockaireference.domain.payroll;
 
-import de.pearlbay.stockaireference.repository.EmployeeRepository;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Transient;
 
 @Data
 @Entity
 public class Employee {
 
-    private @Id @GeneratedValue Long id;
+    private @Id
+    @GeneratedValue
+    Long id;
     private String name;
     private String role;
 
@@ -21,5 +21,5 @@ public class Employee {
         this.name = name;
         this.role = role;
     }
-    
+
 }
