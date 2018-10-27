@@ -2,6 +2,7 @@ package de.pearlbay.stockaireference.application;
 
 import de.pearlbay.stockaireference.controller.OrderController;
 import de.pearlbay.stockaireference.domain.business.Order;
+import de.pearlbay.stockaireference.domain.business.Status;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceAssembler;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,15 @@ public class OrderResourceAssembler implements ResourceAssembler<Order,Resource<
                 linkTo(methodOn(OrderController.class).all()).withRel("orders")
         );
 
+        if (order.getStatus() == Status.IN_PROGRESS) {
+            orderResource.add(
+                    linkTo(methodOn(OrderController.class)
+                            .cancel(order.getId())).withRel("cancel"));
+            orderResource.add(
+                    linkTo(methodOn(OrderController.class)
+                            .complete(order.getId())).withRel("complete"));
+        }
+        
         return orderResource;
     }
 }
