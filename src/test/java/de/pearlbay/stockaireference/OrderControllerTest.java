@@ -27,7 +27,7 @@ public class OrderControllerTest {
     @Test
     public void shouldReturnAllOrders() {
         assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/orders",
-                String.class)).contains("Description order 10");
+                String.class)).contains("Description order 1");
     }
 
     @Test
