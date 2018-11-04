@@ -4,6 +4,8 @@ import de.pearlbay.stockaireference.application.EmployeeNotFoundException;
 import de.pearlbay.stockaireference.application.EmployeeResourceAssembler;
 import de.pearlbay.stockaireference.domain.payroll.Employee;
 import de.pearlbay.stockaireference.repository.EmployeeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,9 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 public class EmployeeController {
-
+    
+    Logger logger = LoggerFactory.getLogger(EmployeeController.class);
+    
     private final EmployeeRepository repository;
     private final EmployeeResourceAssembler employeeResourceAssembler;
 
@@ -33,7 +37,9 @@ public class EmployeeController {
         List<Resource<Employee>> employees = repository.findAll().stream()
             .map(employee -> employeeResourceAssembler.toResource(employee))
                 .collect(Collectors.toList());
-
+        
+        logger.info("route /employees");
+        
         return new Resources<>(employees,
                 linkTo(methodOn(EmployeeController.class).all()).withSelfRel());
     }
