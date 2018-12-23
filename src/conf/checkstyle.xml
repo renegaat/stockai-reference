@@ -206,17 +206,10 @@
         <module name="UpperEll"/>
 
         <module name="SuppressWarningsHolder"/>
-
-        <!-- TODO s. KONZ-1433
-        <module name="AbbreviationAsWordInName">
-            <property name="ignoreFinal" value="false"/>
-            <property name="allowedAbbreviationLength" value="1"/>
-        </module>
-        -->
     </module>
 
     <module name="SuppressionFilter">
-        <property name="file" value="${config_loc}/checkstyle_suppress.xml"/>
+        <property name="file" value="src/conf/checkstyle_suppress.xml"/>
     </module>
 
 </module>
