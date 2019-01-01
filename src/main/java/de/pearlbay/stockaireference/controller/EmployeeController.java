@@ -21,9 +21,9 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 public class EmployeeController {
-    
-    Logger logger = LoggerFactory.getLogger(EmployeeController.class);
-    
+
+    private Logger logger = LoggerFactory.getLogger(EmployeeController.class);
+
     private final EmployeeRepository repository;
     private final EmployeeResourceAssembler employeeResourceAssembler;
 
@@ -35,15 +35,15 @@ public class EmployeeController {
     @GetMapping("/employees")
     public Resources<Resource<Employee>> all() {
         List<Resource<Employee>> employees = repository.findAll().stream()
-            .map(employee -> employeeResourceAssembler.toResource(employee))
+                .map(employee -> employeeResourceAssembler.toResource(employee))
                 .collect(Collectors.toList());
-        
+
         logger.info("route /employees");
-        
+
         return new Resources<>(employees,
                 linkTo(methodOn(EmployeeController.class).all()).withSelfRel());
     }
-    
+
     @GetMapping("/employees/{id}")
     public Resource<Employee> one(@PathVariable Long id) {
 
@@ -56,10 +56,10 @@ public class EmployeeController {
     @PostMapping("/employees")
     public ResponseEntity<?> newEmployee(@RequestBody Employee newEmployee) throws URISyntaxException {
 
-            Resource<Employee> employeeResource
-                    = employeeResourceAssembler.toResource(repository.save(newEmployee));
+        Resource<Employee> employeeResource
+                = employeeResourceAssembler.toResource(repository.save(newEmployee));
 
-         return ResponseEntity
+        return ResponseEntity
                 .created(new URI(employeeResource.getId().expand().getHref()))
                 .body(employeeResource);
     }
